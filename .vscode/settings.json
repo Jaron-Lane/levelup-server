@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Level Up DB",
+            "database": "db.sqlite3"
+        }
+    ]
+}
