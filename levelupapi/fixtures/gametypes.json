@@ -3,21 +3,21 @@
         "model": "levelupapi.gametype",
         "pk": 1,
         "fields": {
-            "type": "Board game"
+            "label": "Board game"
         }
     },
     {
         "model": "levelupapi.gametype",
         "pk": 2,
         "fields": {
-            "type": "Role-playing game"
+            "label": "Role-playing game"
         }
     },
     {
         "model": "levelupapi.gametype",
         "pk": 3,
         "fields": {
-            "type": "MMO game"
+            "label": "MMO game"
         }
     }
 ]
