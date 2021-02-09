@@ -1,3 +1,30 @@
+from rest_framework import routers
+from levelupapi.views import GameTypes, Games
+from django.conf.urls import include
+from django.urls import path
+from levelupapi.views import register_user, login_user
+
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'gametypes', GameTypes, 'gametype')
+router.register(r'games', Games, 'game')
+
+urlpatterns = [
+    path('', include(router.urls)),
+    path('register', register_user),
+    path('login', login_user),
+    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
+]
+
+
+
+
+
+
+
+
+
+
 """levelup URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -13,13 +40,3 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
-from django.conf.urls import include
-from django.urls import path
-from levelupapi.views import register_user, login_user
-
-urlpatterns = [
-    path('register', register_user),
-    path('login', login_user),
-    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
-]
