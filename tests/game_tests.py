@@ -104,3 +104,42 @@ class GameTests(APITestCase):
         self.assertEqual(json_response["number_of_players"], 4)
         self.assertEqual(json_response["gamer"]["id"], 1)
         self.assertEqual(json_response["description"], "A really good time if you win")
+
+    def test_change_game(self):
+        """
+        Ensure we can change an existing game.
+        """
+        game = Game()
+        game.title = "Sorry"
+        game.gametype_id = 1
+        game.number_of_players = 4
+        game.gamer_id = 1
+        game.description = "Sucks to be you"
+        game.save()
+
+        # DEFINE NEW PROPERTIES FOR GAME
+        data = {
+            "title": "Sorry",
+            "gameTypeId": 1,
+            "numberOfPlayers": 4,
+            "gamer": 1,
+            "description": "Sorry suckaaa!"
+        }
+
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+        response = self.client.put(f"/games/{game.id}", data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        # GET GAME AGAIN TO VERIFY CHANGES
+        response = self.client.get(f"/games/{game.id}")
+        json_response = json.loads(response.content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # print(f"(Hello){type(json_response)}")
+
+        # Assert that the properties are correct
+        self.assertEqual(json_response["title"], "Sorry")
+        self.assertEqual(json_response["gametype"]["id"], 1)
+        self.assertEqual(json_response["number_of_players"], 4)
+        self.assertEqual(json_response["gamer"]["id"], 1)
+        self.assertEqual(json_response["description"], "Sorry suckaaa!")

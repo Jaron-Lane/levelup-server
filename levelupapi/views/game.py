@@ -84,7 +84,6 @@ class Games(ViewSet):
         # from the database whose primary key is `pk`
         game = Game.objects.get(pk=pk)
         game.title = request.data["title"]
-        game.gametype = request.data["gameType"]
         game.number_of_players = request.data["numberOfPlayers"]
         game.gamer = gamer
         game.description = request.data["description"]
